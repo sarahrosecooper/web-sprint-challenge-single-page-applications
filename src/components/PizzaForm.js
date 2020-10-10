@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 // A name text input field
 //  Validation for name - name must be at least 2 characters
@@ -8,9 +9,48 @@ import React from "react";
 //  An Add to Order button that submits form and returns a database record of name, size, toppings and special instructions
 
 const PizzaForm = () => {
+  const [formStart, setFormStart] = useState({
+    name: "",
+    sizes: {
+      small: false,
+      medium: false,
+      large: false,
+    },
+    toppings: {
+      pepperoni: false,
+      mushroom: false,
+      anchovie: false,
+      cheeseOnly: false,
+    },
+    instructions: "",
+  });
+
+  const handleChanges = (e) => {
+    if (e.target.type === "checkbox") {
+      setFormStart({
+        ...formStart,
+        toppings: {
+          ...formStart.toppings,
+          [e.target.name]: e.target.checked,
+        },
+      });
+    } else {
+      setFormStart({
+        ...formStart,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
+
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log("submit");
+  };
+
   return (
     <div>
-      <form onSubmit="">
+      <form onSubmit={submitForm}>
         {/* ----- NAME ----- */}
 
         <label htmlFor="name">
@@ -19,9 +59,9 @@ const PizzaForm = () => {
             name="name"
             type="text"
             id="name"
-            value=""
+            value={formStart.name}
             placeholder="please enter your name."
-            onChange=""
+            onChange={handleChanges}
             data-cy="name"
           />
         </label>
@@ -33,9 +73,8 @@ const PizzaForm = () => {
           <select
             name="sizes"
             id="sizes"
-            value=""
-            defaultValue="large"
-            onChange=""
+            value={formStart.sizes}
+            onChange={handleChanges}
             data-cy="sizes"
           >
             <option value="small" data-cy="small">
@@ -60,7 +99,7 @@ const PizzaForm = () => {
               name="pepperoni"
               type="checkbox"
               id="pepperoni"
-              onChange=""
+              onChange={handleChanges}
               data-cy="pepperoni"
             />
             pepperoni
@@ -71,7 +110,7 @@ const PizzaForm = () => {
               name="mushroom"
               type="checkbox"
               id="mushroom"
-              onChange=""
+              onChange={handleChanges}
               data-cy="mushroom"
             />
             mushroom
@@ -82,7 +121,7 @@ const PizzaForm = () => {
               name="cheeseOnly"
               type="checkbox"
               id="cheeseOnly"
-              onChange=""
+              onChange={handleChanges}
               data-cy="cheeseOnly"
             />
             cheese only
@@ -93,7 +132,7 @@ const PizzaForm = () => {
               name="anchovie"
               type="checkbox"
               id="anchovie"
-              onChange=""
+              onChange={handleChanges}
               data-cy="anchovie"
             />
             anchovie
@@ -104,13 +143,12 @@ const PizzaForm = () => {
 
         <label htmlFor="instructions">
           any special instructions?
-          <text
-            area
+          <textarea
             name="instructions"
             id="instructions"
-            value=""
+            value={formStart.instructions}
             placeholder="anything extra special...?"
-            onChange=""
+            onChange={handleChanges}
             data-cy="instructions"
           />
         </label>
