@@ -96,6 +96,7 @@ const PizzaForm = () => {
             data-cy="name"
           />
         </label>
+        <br></br>
 
         {/* ----- SIZE DROPDOWN ------- */}
 
@@ -183,6 +184,8 @@ const PizzaForm = () => {
             data-cy="instructions"
           />
         </label>
+        <br></br>
+        <br></br>
 
         {/* ----BUTTON-------- */}
 
