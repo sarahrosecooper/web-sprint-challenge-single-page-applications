@@ -8,43 +8,121 @@ import React from "react";
 //  An Add to Order button that submits form and returns a database record of name, size, toppings and special instructions
 
 const PizzaForm = () => {
-  return (<div>
-      This is the Pizza form
-    <form>
-    <label htmlFor="">
-    <input name="" type="" id="" value="" placeholder="" onChange="" data-cy="">
-    </input>
+  return (
+    <div>
+      <form onSubmit="">
+        {/* ----- NAME ----- */}
 
-    <label htmlFor="">
-    <input name="" type="" id="" value="" placeholder="" onChange="" data-cy="">
-    </input>
+        <label htmlFor="name">
+          name:
+          <input
+            name="name"
+            type="text"
+            id="name"
+            value=""
+            placeholder="please enter your name."
+            onChange=""
+            data-cy="name"
+          />
+        </label>
 
-    <label htmlFor="">
-    <input name="" type="" id="" value="" placeholder="" onChange="" data-cy="">
-    </input>
+        {/* ----- SIZE DROPDOWN ------- */}
 
-    <label htmlFor="">
-    <input name="" type="" id="" value="" placeholder="" onChange="" data-cy="">
-    </input>
+        <label htmlFor="sizes">
+          pizza size:
+          <select
+            name="sizes"
+            id="sizes"
+            value=""
+            defaultValue="large"
+            onChange=""
+            data-cy="sizes"
+          >
+            <option value="small" data-cy="small">
+              small
+            </option>
+            <option value="medium" data-cy="medium">
+              medium
+            </option>
+            <option value="large" data-cy="large">
+              large
+            </option>
+          </select>
+        </label>
 
-    <button>
-        
-    </button>
+        {/* ----- TOPPINGS ---- */}
 
+        <fieldset>
+          <legend>toppings:</legend>
 
-    </label>
+          <label htmlFor="pepperoni">
+            <input
+              name="pepperoni"
+              type="checkbox"
+              id="pepperoni"
+              onChange=""
+              data-cy="pepperoni"
+            />
+            pepperoni
+          </label>
 
+          <label htmlFor="mushroom">
+            <input
+              name="mushroom"
+              type="checkbox"
+              id="mushroom"
+              onChange=""
+              data-cy="mushroom"
+            />
+            mushroom
+          </label>
 
+          <label htmlFor="cheeseOnly">
+            <input
+              name="cheeseOnly"
+              type="checkbox"
+              id="cheeseOnly"
+              onChange=""
+              data-cy="cheeseOnly"
+            />
+            cheese only
+          </label>
 
+          <label htmlFor="anchovie">
+            <input
+              name="anchovie"
+              type="checkbox"
+              id="anchovie"
+              onChange=""
+              data-cy="anchovie"
+            />
+            anchovie
+          </label>
+        </fieldset>
 
+        {/* ---- INSTRUCTIONS ---- */}
 
-    </form>
+        <label htmlFor="instructions">
+          any special instructions?
+          <text
+            area
+            name="instructions"
+            id="instructions"
+            value=""
+            placeholder="anything extra special...?"
+            onChange=""
+            data-cy="instructions"
+          />
+        </label>
 
+        {/* ----BUTTON-------- */}
 
-
-
-  </div>;
-  )
+        <button type="submit" data-cy="submit">
+          ready?
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default PizzaForm;
