@@ -7,7 +7,7 @@ import PizzaForm from "./components/PizzaForm";
 const App = () => {
   return (
     <div>
-      <h1>Lambda Eats</h1>
+      <h1>simple pizza</h1>
       <Navigation />
 
       <Route path="/pizza" render={() => <PizzaForm />} />

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import * as yup from "yup";
 
 // A name text input field
 //  Validation for name - name must be at least 2 characters
@@ -20,7 +21,7 @@ const PizzaForm = () => {
       pepperoni: false,
       mushroom: false,
       anchovie: false,
-      cheeseOnly: false,
+      bacon: false,
     },
     instructions: "",
   });
@@ -42,10 +43,40 @@ const PizzaForm = () => {
     }
   };
 
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .min(2, "minimum of 2 characters")
+      .required("valid name please."),
+  });
+
+  const validateSchema = (e) => {
+    e.persist();
+    yup
+      .reach(schema, e.target.name)
+      .validate(e.target.value)
+      .then((success) => {
+        console.log("success!!", success);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  const [apiData, setApiData] = useState(null);
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("submit");
+    axios
+      .post("https://reqres.in/api/users", formStart)
+      .then((response) => {
+        console.log("api data", response.data);
+        setApiData(response.data);
+      })
+
+      .catch((error) => {
+        console.log("error from data", error);
+      });
   };
 
   return (
@@ -116,15 +147,15 @@ const PizzaForm = () => {
             mushroom
           </label>
 
-          <label htmlFor="cheeseOnly">
+          <label htmlFor="bacon">
             <input
-              name="cheeseOnly"
+              name="bacon"
               type="checkbox"
-              id="cheeseOnly"
+              id="bacon"
               onChange={handleChanges}
-              data-cy="cheeseOnly"
+              data-cy="bacon"
             />
-            cheese only
+            bacon
           </label>
 
           <label htmlFor="anchovie">
@@ -158,6 +189,7 @@ const PizzaForm = () => {
         <button type="submit" data-cy="submit">
           ready?
         </button>
+        <pre>{JSON.stringify(apiData, null, 2)}</pre>
       </form>
     </div>
   );
